@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Easter Celebration - A Beautiful Reflection</title>
+  
+  <!-- Elegant fonts: Serif + Script -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Merriweather', serif;
+      background: linear-gradient(135deg, #fff8f0, #f9ecd6);
+      color: #4a3b24;
+      user-select: none;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    /* Centering utility */
+    .center-flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Landing page styling */
+    #landing {
+      height: 100vh;
+      background: linear-gradient(135deg, #fff6e6, #f3deb1);
+      flex-direction: column;
+      text-align: center;
+      padding: 0 1rem;
+      transition: opacity 0.7s ease;
+    }
+    #landing h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 5rem;
+      margin: 0 0 1rem 0;
+      color: #d19f48;
+      text-shadow: 0 0 15px rgba(209, 159, 72, 0.4);
+      user-select: text;
+    }
+    #landing p {
+      font-size: 1.2rem;
+      margin: 0 0 3rem 0;
+      color: #7a6a4a;
+      max-width: 450px;
+      user-select: text;
+    }
+    #landing button {
+      background: linear-gradient(135deg, #f0b72b, #c3850f);
+      border: none;
+      padding: 18px 60px;
+      font-size: 24px;
+      font-weight: 700;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(195, 133, 15, 0.5);
+      transition: all 0.3s ease;
+      font-family: 'Merriweather', serif;
+      letter-spacing: 0.06em;
+      user-select: none;
+      text-transform: uppercase;
+    }
+    #landing button:hover,
+    #landing button:focus {
+      background: linear-gradient(135deg, #c3850f, #f0b72b);
+      transform: scale(1.08);
+      box-shadow: 0 12px 32px rgba(195, 133, 15, 0.8);
+      outline: none;
+    }
+    
+    /* Main app container */
+    #app {
+      display: none;
+      flex-direction: column;
+      padding: 60px 30px;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fff8f0, #f9ecd6);
+      align-items: center;
+      transition: opacity 0.7s ease;
+    }
+    
+    /* Paper styling */
+    .paper {
+      position: relative;
+      background: linear-gradient(145deg, #fefaf2, #fcf7ee);
+      max-width: 850px;
+      width: 90%;
+      min-height: 75vh;
+      padding: 70px 60px 60px 60px;
+      border-radius: 28px;
+      box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.12),
+        inset 0 0 45px 15px rgba(255, 255, 240, 0.95);
+      border: 2px solid #e7d7b7;
+      font-size: 22px;
+      line-height: 1.9;
+      color: #5b4635;
+      font-weight: 500;
+      font-family: 'Merriweather', serif;
+      background-image:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(240, 230, 210, 0.15),
+          rgba(240, 230, 210, 0.15) 6px,
+          transparent 7px,
+          transparent 40px
+        );
+      animation: fadeInUp 1.3s ease forwards;
+      opacity: 0;
+      user-select: text;
+    }
+    /* Elegant vignette glow */
+    .paper::before {
+      content: '';
+      pointer-events: none;
+      position: absolute;
+      inset: 15px;
+      border-radius: 22px;
+      box-shadow:
+        inset 0 0 70px 25px rgba(255, 249, 224, 0.75),
+        0 18px 50px rgba(194, 153, 41, 0.4);
+      z-index: 0;
+    }
+    #output {
+      position: relative;
+      z-index: 1;
+      white-space: pre-wrap;
+      text-align: justify;
+      letter-spacing: 0.03em;
+    }
+    /* Cross icon */
+    .cross {
+      font-family: 'Great Vibes', cursive;
+      font-size: 5.5rem;
+      color: #d19f48;
+      margin-bottom: 32px;
+      user-select: none;
+      text-shadow: 0 0 20px rgba(209, 159, 72, 0.55);
+      position: relative;
+      z-index: 1;
+      animation: shimmer 3.5s infinite ease-in-out;
+      text-align: center;
+    }
+    /* Candle */
+    .candle {
+      width: 36px;
+      height: 60px;
+      background: linear-gradient(to bottom, #fff9df 0%, #e9d98c 100%);
+      border-radius: 8px;
+      margin: 42px auto 0 auto;
+      position: relative;
+      filter: drop-shadow(0 1.5px 2px rgba(182, 127, 47, 0.4));
+      animation: flicker 1.4s infinite alternate ease-in-out;
+      box-shadow: inset 0 4px 12px #fdf7d5;
+      cursor: default;
+      user-select: none;
+      z-index: 1;
+    }
+    .candle::before {
+      content: '';
+      position: absolute;
+      top: -28px;
+      left: 12px;
+      width: 14px;
+      height: 28px;
+      background: radial-gradient(circle, #fff89f 0%, #fbc02d 80%);
+      border-radius: 50%;
+      filter: drop-shadow(0 0 10px #fbc02d);
+      animation: flameFlicker 1.6s infinite ease-in-out;
+      box-shadow: 0 0 10px 2px #ffec6d;
+      z-index: 2;
+    }
+    
+    /* Animations */
+    @keyframes flicker {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(1.1); opacity: 0.9; }
+    }
+    @keyframes flameFlicker {
+      0%, 100% { opacity: 1; transform: translateX(0) translateY(0) scale(1); }
+      50% { opacity: 0.85; transform: translateX(1.2px) translateY(-2.2px) scale(1.07); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(35px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0%, 100% {
+        text-shadow:
+          0 0 8px rgba(209, 159, 72, 0.55),
+          0 0 20px rgba(209, 159, 72, 0.55);
+        color: #d19f48;
+      }
+      50% {
+        text-shadow:
+          0 0 18px rgba(255, 219, 88, 0.85),
+          0 0 38px rgba(255, 219, 88, 0.75);
+        color: #f7ce59;
+      }
+    }
+    
+    /* Responsive */
+    @media (max-width: 900px) {
+      #landing h1 {
+        font-size: 3.8rem;
+      }
+      #landing button {
+        padding: 16px 48px;
+        font-size: 22px;
+      }
+      .paper {
+        font-size: 18px;
+        padding: 45px 30px 40px 30px;
+        width: 95%;
+      }
+      .cross {
+        font-size: 4.5rem;
+        margin-bottom: 28px;
+      }
+      .candle {
+        width: 28px;
+        height: 48px;
+      }
+      .candle::before {
+        width: 11px;
+        height: 22px;
+        left: 9px;
+        top: -20px;
+      }
+    }
+    @media (max-width: 480px) {
+      #landing h1 {
+        font-size: 2.8rem;
+      }
+      #landing p {
+        max-width: 320px;
+      }
+      #landing button {
+        padding: 14px 36px;
+        font-size: 18px;
+      }
+      .paper {
+        font-size: 16px;
+        padding: 30px 20px 30px 20px;
+      }
+      .cross {
+        font-size: 3.2rem;
+        margin-bottom: 20px;
+      }
+      .candle {
+        width: 22px;
+        height: 38px;
+      }
+      .candle::before {
+        width: 8px;
+        height: 16px;
+        left: 7px;
+        top: -15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Landing Page -->
+  <div id="landing" class="center-flex" role="main" aria-label="Welcome landing page">
+    <h1>Welcome to Easter Reflection</h1>
+    <p>Celebrate hope, renewal, and joy through the beautiful story of Easter.</p>
+    <button aria-label="Enter Easter celebration page" onclick="enterApp()">Enter Celebration</button>
+  </div>
+
+  <!-- Main App Page -->
+  <div id="app" class="center-flex" role="main" aria-label="Easter celebration text" tabindex="-1">
+    <article class="paper" aria-live="polite" tabindex="0">
+      <div class="cross" aria-hidden="true" title="Easter Cross">✝️</div>
+      <div id="output" aria-label="Easter reflection text"></div>
+      <div class="candle" aria-hidden="true" title="Flickering candle"></div>
+    </article>
+  </div>
+
+  <script>
+    // The beautifully formatted Easter reflection text
+    const easterText = `
+Easter is the most joyful celebration in Christianity, honoring Christ’s Resurrection and the promise of new life. 
+
+Families gather to attend church services, where the bells ring loudly in celebration. Many light candles, symbolizing Jesus as the Light of the World. 
+
+Traditional foods like sweet Easter bread and painted eggs remind us of blessings and new beginnings. Some people walk in processions, carrying crosses and singing hymns of hope. 
+
+It’s a time for prayer, forgiveness, and renewal. Even in sadness, Easter reminds us that after every sorrow, there is joy.
+    `.trim();
+
+    // Elements
+    const landing = document.getElementById('landing');
+    const app = document.getElementById('app');
+    const output = document.getElementById('output');
+
+    function enterApp() {
+      landing.style.opacity = '0';
+      setTimeout(() => {
+        landing.style.display = 'none';
+        app.style.display = 'flex';
+        app.style.opacity = '0';
+        output.textContent = easterText;
+        // Focus on output for accessibility
+        app.focus();
+        setTimeout(() => app.style.opacity = '1', 50);
+        // Play gentle bell sound on enter
+        playBellSound();
+      }, 700);
+    }
+
+    // Play a gentle ambient bell using Web Audio API
+    function playBellSound() {
+      try {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = context.createOscillator();
+        const gainNode = context.createGain();
+
+        oscillator.type = 'triangle';
+        oscillator.frequency.setValueAtTime(440, context.currentTime); // A4 note
+        gainNode.gain.setValueAtTime(0, context.currentTime);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(context.destination);
+
+        gainNode.gain.linearRampToValueAtTime(0.15, context.currentTime + 0.1);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 1.5);
+
+        oscillator.start();
+        oscillator.stop(context.currentTime + 1.5);
+      } catch (e) {
+        // Audio not supported or blocked - silently fail
+      }
+    }
+  </script>
+
+</body>
+</html>
